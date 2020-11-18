@@ -31,6 +31,15 @@ export class ShoppingListService {
     return this.http.delete<ShoppingList>(url, httpOptions);
   }
 
+  // Add ShoppingList
+  addShoppingList(shoppingList: ShoppingList): Observable<ShoppingList> {
+    return this.http.post<ShoppingList>(
+      this.shoppingListsUrl,
+      shoppingList,
+      httpOptions
+    );
+  }
+
   // Toggle Completed
   toggleCompleted(shoppingList: ShoppingList): Observable<any> {
     const url = `${this.shoppingListsUrl}/${shoppingList.id}`;

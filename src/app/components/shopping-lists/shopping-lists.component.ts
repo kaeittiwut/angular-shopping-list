@@ -25,4 +25,12 @@ export class ShoppingListsComponent implements OnInit {
     // Remove from server
     this.shoppingListService.deleteShoppingList(shoppingList).subscribe();
   }
+
+  addShoppingList(shoppingList: ShoppingList) {
+    this.shoppingListService
+      .addShoppingList(shoppingList)
+      .subscribe((shoppingList) => {
+        this.shoppingLists.push(shoppingList);
+      });
+  }
 }

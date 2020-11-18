@@ -1,3 +1,6 @@
+<app-add-shopping-list
+  (addShoppingList)="addShoppingList($event)"
+></app-add-shopping-list>
 <app-shopping-item
   *ngFor="let shoppingList of shoppingLists"
   [shoppingList]="shoppingList"

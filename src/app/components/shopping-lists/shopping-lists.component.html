@@ -1,4 +1,5 @@
 <app-shopping-item
   *ngFor="let shoppingList of shoppingLists"
   [shoppingList]="shoppingList"
+  (deleteShoppingList)="deleteShoppingList($event)"
 ></app-shopping-item>

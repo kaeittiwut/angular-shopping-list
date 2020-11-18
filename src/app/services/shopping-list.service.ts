@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ShoppingList } from '../models/ShoppingList';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingListService {
-  constructor() {}
+  shoppingListsUrl = 'https://jsonplaceholder.typicode.com/todos';
+  listsLimit = '?_limit=5';
 
-  getShoppingList() {
-    return [
-      {
-        id: 1,
-        title: 'One 1',
-        completed: false,
-      },
-      {
-        id: 2,
-        title: 'Two',
-        completed: false,
-      },
-      {
-        id: 3,
-        title: 'Three',
-        completed: false,
-      },
-    ];
+  constructor(private http: HttpClient) {}
+
+  // Get ShoppingLists
+  getShoppingLists(): Observable<ShoppingList[]> {
+    return this.http.get<ShoppingList[]>(
+      `${this.shoppingListsUrl}${this.listsLimit}`
+    );
+  }
+
+  // Delete ShoppingList
+  deleteShoppingList(shoppingList: ShoppingList): Observable<ShoppingList> {
+    const url = `${this.shoppingListsUrl}/${shoppingList.id}`;
+    return this.http.delete<ShoppingList>(url, httpOptions);
+  }
+
+  // Toggle Completed
+  toggleCompleted(shoppingList: ShoppingList): Observable<any> {
+    const url = `${this.shoppingListsUrl}/${shoppingList.id}`;
+    return this.http.put(url, shoppingList, httpOptions);
   }
 }

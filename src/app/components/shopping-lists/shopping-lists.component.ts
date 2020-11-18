@@ -12,6 +12,17 @@ export class ShoppingListsComponent implements OnInit {
   constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit(): void {
-    this.shoppingLists = this.shoppingListService.getShoppingList();
+    this.shoppingListService.getShoppingLists().subscribe((shoppingLists) => {
+      this.shoppingLists = shoppingLists;
+    });
+  }
+
+  deleteShoppingList(shoppingList: ShoppingList): void {
+    // Remove from UI
+    this.shoppingLists = this.shoppingLists.filter(
+      (t) => t.id !== shoppingList.id
+    );
+    // Remove from server
+    this.shoppingListService.deleteShoppingList(shoppingList).subscribe();
   }
 }

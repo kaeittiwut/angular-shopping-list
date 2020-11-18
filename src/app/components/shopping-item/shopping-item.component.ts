@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { toUnicode } from 'punycode';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ShoppingList } from 'src/app/models/ShoppingList';
+import { ShoppingListService } from '../../services/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-item',
@@ -9,8 +9,9 @@ import { ShoppingList } from 'src/app/models/ShoppingList';
 })
 export class ShoppingItemComponent implements OnInit {
   @Input() shoppingList: ShoppingList;
+  @Output() deleteShoppingList: EventEmitter<ShoppingList> = new EventEmitter();
 
-  constructor() {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit(): void {}
 
@@ -24,10 +25,15 @@ export class ShoppingItemComponent implements OnInit {
   }
 
   onToggle(shoppingList): void {
+    // Toggle in UI
     shoppingList.completed = !shoppingList.completed;
+    // Toggle on server
+    this.shoppingListService
+      .toggleCompleted(shoppingList)
+      .subscribe((shoppingList) => console.log(shoppingList));
   }
 
   onDelete(shoppingList): void {
-    console.log('delete');
+    this.deleteShoppingList.emit(shoppingList);
   }
 }

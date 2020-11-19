@@ -9,6 +9,7 @@ import { ShoppingListsComponent } from './components/shopping-lists/shopping-lis
 import { ShoppingItemComponent } from './components/shopping-item/shopping-item.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { AddShoppingListComponent } from './components/add-shopping-list/add-shopping-list.component';
+import { AboutComponent } from './components/pages/about/about.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AddShoppingListComponent } from './components/add-shopping-list/add-sho
     ShoppingItemComponent,
     HeaderComponent,
     AddShoppingListComponent,
+    AboutComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
